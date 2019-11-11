@@ -7,6 +7,7 @@ import pie from './images/pie.jpg';
 import lastLine from './images/lastLine.png'
 import './App.css';
 import firebase from './firebaseConfig'
+import Users from './components/Users'
 
 class  App  extends Component {
   constructor(props){
@@ -27,7 +28,8 @@ class  App  extends Component {
       DeliveriesArr: [],
       DeliveriesKeys: 0,
       menu: false,
-      height : props.height
+      height : props.height,
+      testNum : 0
     };
   }
 
@@ -37,12 +39,25 @@ class  App  extends Component {
     }
     this.getDrivers();
     this.getDeliveries();
-    this.getAppUsers();
+    this.getAppUsers()
+  }
+  d
+  getAppUsers(){
+   if (this.Users.state.loading === false){
+    this.setState({
+      testNum: this.Users.state.usersKeys.length
+    })
+   }else{
+     setTimeout(() => {
+      this.getAppUsers()
+     }, 1000);
+   }
+
   }
 
   getDrivers(){
     firebase.database().ref('drivers/').on('value', drivers =>{
-      if (drivers.val() != null || drivers.val() != undefined){
+      if (drivers.val() !== null || drivers.val() !== undefined){
         var details = drivers.val();
         var keys =  Object.keys(details);
         this.setState({
@@ -53,22 +68,9 @@ class  App  extends Component {
     })
   }
 
-  getAppUsers(){
-    firebase.database().ref('users/').on('value', users =>{
-      if (users.val() != null || users.val() != undefined){
-      var details =  users.val();
-      var keys = Object.keys(details);
-      this.setState({
-        usersKeys: keys,
-        usersArr: details,
-        })
-      }
-    })
-  }
-
   getDeliveries(){
     firebase.database().ref('completedDeliveries/').on('value', deliveries =>{
-      if (deliveries.val() != null || deliveries.val() != undefined){
+      if (deliveries.val() !== null || deliveries.val() !== undefined){
         var details = deliveries.val();
         var keys = Object.keys(details);
         var tempKeys = 0
@@ -162,8 +164,8 @@ class  App  extends Component {
           <div className={this.state.drivers ? "App-show" : "App-hide"}>
             <h4>Summary</h4>
             <div class="cards">
-                <div className="card"><span class="iconColors"><a class="fa fa-user"></a> App users</span> <span style={{float:"right"}}>{this.state.usersKeys.length}</span><br></br>
-               <div className="App-image"><img src={graph} className="App-image2"/></div> 
+                <div className="card"><span class="iconColors"><a class="fa fa-user"></a> App users</span> <span style={{float:"right"}}>{this.state.testNum}</span><br></br>
+               <div className="App-image"><Users ref={ref=>{ this.Users = ref}}/></div> 
                 </div>
                 <div className="card"><span class="iconColors"><a class="fa fa-group"></a> Drivers</span> <span style={{float:"right"}}>{this.state.driverKeys.length}</span><br></br>
                 <div className="App-align"><img src={line} className="App-image2"/></div> 
@@ -182,7 +184,7 @@ class  App  extends Component {
                 </div>
             </div>
           </div>
-
+ 
           <div className={this.state.bikes ? "App-show" : "App-hide"}>
           <h4>Bikes</h4>
           </div>
