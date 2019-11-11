@@ -8,6 +8,8 @@ import lastLine from './images/lastLine.png'
 import './App.css';
 import firebase from './firebaseConfig'
 import Users from './components/Users'
+import Drivers from './components/Drivers'
+import Deliveries from './components/Deliveries'
 
 class  App  extends Component {
   constructor(props){
@@ -25,8 +27,7 @@ class  App  extends Component {
       driverKeys: [],
       usersKeys: [],
       usersArr: [],
-      DeliveriesArr: [],
-      DeliveriesKeys: 0,
+      DriversTot: 0,
       menu: false,
       height : props.height,
       testNum : 0
@@ -37,11 +38,21 @@ class  App  extends Component {
     if (window.innerWidth > 800){
       this.setState({menu:true})
     }
-    this.getDrivers();
-    this.getDeliveries();
+   
     this.getAppUsers()
+    this. getDrivers()
   }
-  d
+  
+  getDrivers(){
+    if (this.Drivers.state.loading == false){
+      this.setState({DriversTot: this.Drivers.state.driverKeys.length})
+    }else{
+      setTimeout(() => {
+        this.getDrivers();
+      }, 1000);
+    }
+  }
+
   getAppUsers(){
    if (this.Users.state.loading === false){
     this.setState({
@@ -55,38 +66,8 @@ class  App  extends Component {
 
   }
 
-  getDrivers(){
-    firebase.database().ref('drivers/').on('value', drivers =>{
-      if (drivers.val() !== null || drivers.val() !== undefined){
-        var details = drivers.val();
-        var keys =  Object.keys(details);
-        this.setState({
-          driverKeys: keys,
-          driversArr: details
-        })
-      }
-    })
-  }
 
-  getDeliveries(){
-    firebase.database().ref('completedDeliveries/').on('value', deliveries =>{
-      if (deliveries.val() !== null || deliveries.val() !== undefined){
-        var details = deliveries.val();
-        var keys = Object.keys(details);
-        var tempKeys = 0
-        for (var x = 0; x < keys.length; x++){
-          firebase.database().ref('completedDeliveries/' + keys[x]).on('value', data =>{
-            var innerData =  data.val();
-            var innerKeys = Object.keys(innerData)
-            tempKeys += innerKeys.length;
-          })
-        }
-       this.setState({
-         DeliveriesKeys: tempKeys
-       })
-      }
-    })
-  }
+
 
   showStats = () =>{
     this.shownav()
@@ -167,11 +148,11 @@ class  App  extends Component {
                 <div className="card"><span class="iconColors"><a class="fa fa-user"></a> App users</span> <span style={{float:"right"}}>{this.state.testNum}</span><br></br>
                <div className="App-image"><Users ref={ref=>{ this.Users = ref}}/></div> 
                 </div>
-                <div className="card"><span class="iconColors"><a class="fa fa-group"></a> Drivers</span> <span style={{float:"right"}}>{this.state.driverKeys.length}</span><br></br>
-                <div className="App-align"><img src={line} className="App-image2"/></div> 
+                <div className="card"><span class="iconColors"><a class="fa fa-group"></a> Drivers</span> <span style={{float:"right"}}>{this.state.DriversTot}</span><br></br>
+                <div className="App-align"><Drivers ref={ref=>{this.Drivers = ref}} /></div> 
                 </div>
                 <div class="card"><span class="iconColors"><a class="fa fa-line-chart"></a> Deliveries</span> <span style={{float:"right"}}>{this.state.DeliveriesKeys}</span><br></br>
-                <div className="App-align2"><img src={loader} className="App-image2"/></div> 
+                <div className="App-align2"><Deliveries ref={ref=>{this.Deliveries = ref}} /></div> 
                 </div>
                 <div className="card"><span class="iconColors"><a class="fa fa-motorcycle"></a> Bikes</span> <span style={{float:"right"}}>30</span><br></br>
                 <div className="App-align"><img src={area_graph} className="App-image2"/></div> 

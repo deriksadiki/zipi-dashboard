@@ -1,0 +1,82 @@
+import React,{Component} from 'react';
+import { Doughnut, Line, Bar, Bubble,Pie} from 'react-chartjs-2';
+import firebase from '../firebaseConfig';
+
+export default class Deliveries extends React.Component{
+    constructor(props){
+        super();
+        this.state = {
+            data: [],
+            months : ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"]
+        }
+    }
+
+    componentDidMount(){
+        this.getDeliveries(); 
+    }
+
+  getDeliveries(){
+    firebase.database().ref('completedDeliveries/').on('value', deliveries =>{
+      if (deliveries.val() !== null || deliveries.val() !== undefined){
+        var details = deliveries.val();
+        var keys = Object.keys(details);
+        var tempKeys = 0
+        var tempArr =  new Array();
+        for (var x = 0; x < keys.length; x++){
+          firebase.database().ref('completedDeliveries/' + keys[x]).on('value', data =>{
+            var innerData =  data.val();
+            var innerKeys = Object.keys(innerData)
+            tempKeys += innerKeys.length;
+            for (var  i = 0; i < innerKeys.length; i++){
+                var tempStr =  new  String()
+                tempStr = innerData[innerKeys[i]].completetionDetails
+                var month = tempStr.split(' ')[0]
+                tempArr.push(month)
+            }
+          })
+        }
+        this.sortDeliveries(tempArr)
+       this.setState({
+         DeliveriesKeys: tempKeys
+       })
+      }
+    })
+  }
+
+  sortDeliveries(Deliveries){
+      var tempArr =  new Array();
+      for (var x = 0; x < this.state.months.length; x++){
+          var total = 0;
+          for (var i = 0; i < Deliveries.length; i++){
+              if (this.state.months[x] == Deliveries[i]){
+                  total++
+              }
+          }
+          tempArr.push(total);
+      }
+      this.setState({
+        data:{
+            labels: this.state.months,
+            datasets: [{
+                backgroundColor: 'rgb(155, 106, 230)',
+                borderColor: 'rgb(155, 106, 230)',
+                data: tempArr,
+            }],
+            options: { 
+                scales: {
+                    yAxes: [{
+                        stacked: true
+                    }]
+                }
+            }
+        }
+      })
+  }
+
+    render(){
+        return(
+            <Line data={this.state.data} />
+        )
+    }
+}

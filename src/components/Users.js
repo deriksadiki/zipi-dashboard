@@ -18,9 +18,6 @@ export default class Users extends React.Component{
     componentDidMount(){
         this.getAppUsers();
     }
-    getNumber = () =>{
-        return this.state.usersKeys.length
-    }
 
     getAppUsers(){
         firebase.database().ref('users/').on('value', users =>{
@@ -72,7 +69,8 @@ export default class Users extends React.Component{
                     label: '',
                     backgroundColor: 'rgb(255, 99, 132)',
                     borderColor: 'rgb(255, 99, 132)',
-                    data: tempArray
+                    data: tempArray,
+                    fill:false
                 }],
                 options: {
                     scales: {
