@@ -28,6 +28,7 @@ class  App  extends Component {
       usersKeys: [],
       usersArr: [],
       DriversTot: 0,
+      DeliveriesTot: 0,
       menu: false,
       height : props.height,
       testNum : 0
@@ -38,9 +39,9 @@ class  App  extends Component {
     if (window.innerWidth > 800){
       this.setState({menu:true})
     }
-   
     this.getAppUsers()
     this. getDrivers()
+    this.getDeliveries()
   }
   
   getDrivers(){
@@ -66,7 +67,17 @@ class  App  extends Component {
 
   }
 
-
+getDeliveries(){
+  if (this.Deliveries.state.loading === false){
+    this.setState({
+      DeliveriesTot: this.Deliveries.state.DeliveriesKeys
+    })
+  }else{
+    setTimeout(() => {
+      this.getDeliveries()
+    }, 1000);
+  }
+}
 
 
   showStats = () =>{
@@ -151,7 +162,7 @@ class  App  extends Component {
                 <div className="card"><span class="iconColors"><a class="fa fa-group"></a> Drivers</span> <span style={{float:"right"}}>{this.state.DriversTot}</span><br></br>
                 <div className="App-align"><Drivers ref={ref=>{this.Drivers = ref}} /></div> 
                 </div>
-                <div class="card"><span class="iconColors"><a class="fa fa-line-chart"></a> Deliveries</span> <span style={{float:"right"}}>{this.state.DeliveriesKeys}</span><br></br>
+                <div class="card"><span class="iconColors"><a class="fa fa-line-chart"></a> Deliveries</span> <span style={{float:"right"}}>{this.state.DeliveriesTot}</span><br></br>
                 <div className="App-align2"><Deliveries ref={ref=>{this.Deliveries = ref}} /></div> 
                 </div>
                 <div className="card"><span class="iconColors"><a class="fa fa-motorcycle"></a> Bikes</span> <span style={{float:"right"}}>30</span><br></br>

@@ -7,6 +7,8 @@ export default class Deliveries extends React.Component{
         super();
         this.state = {
             data: [],
+            loading:true,
+            DeliveriesKeys: 0,
             months : ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"]
         }
@@ -38,7 +40,8 @@ export default class Deliveries extends React.Component{
         }
         this.sortDeliveries(tempArr)
        this.setState({
-         DeliveriesKeys: tempKeys
+         DeliveriesKeys: tempKeys,
+         loading: false
        })
       }
     })
@@ -59,8 +62,8 @@ export default class Deliveries extends React.Component{
         data:{
             labels: this.state.months,
             datasets: [{
-                backgroundColor: 'rgb(155, 106, 230)',
-                borderColor: 'rgb(155, 106, 230)',
+                backgroundColor: 'rgb(230, 211, 106)',
+                borderColor: 'rgb(230, 211, 106)',
                 data: tempArr,
             }],
             options: { 
