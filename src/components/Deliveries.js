@@ -20,7 +20,7 @@ export default class Deliveries extends React.Component{
 
   getDeliveries(){
     firebase.database().ref('completedDeliveries/').on('value', deliveries =>{
-      if (deliveries.val() !== null || deliveries.val() !== undefined){
+      if (deliveries.val() != null || deliveries.val() != undefined){
         var details = deliveries.val();
         var keys = Object.keys(details);
         var tempKeys = 0

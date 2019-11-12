@@ -21,7 +21,7 @@ export default class Users extends React.Component{
 
     getAppUsers(){
         firebase.database().ref('users/').on('value', users =>{
-          if (users.val() !== null || users.val() !== undefined){
+          if (users.val() != null || users.val() != undefined){
           var details =  users.val();
           var keys = Object.keys(details);
           var tempArray = new Array();

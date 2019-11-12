@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import graph from './images/newLine.png'
 import line from './images/line.jpg'
-import loader from './images/loader.jpg'
+import storm from './images/storm.jpg'
 import area_graph from './images/area_graph.png'
 import pie from './images/pie.jpg';
 import lastLine from './images/lastLine.png'
@@ -16,8 +16,8 @@ class  App  extends Component {
     super()
     this.state = {
       active: true,
-      stats: false,
-      drivers: true,
+      stats: true,
+      drivers: false,
       bikes: false,
       trucks:false,
       bakkies: false,
@@ -29,6 +29,8 @@ class  App  extends Component {
       usersArr: [],
       DriversTot: 0,
       DeliveriesTot: 0,
+      months : ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"],
       menu: false,
       height : props.height,
       testNum : 0
@@ -124,7 +126,23 @@ getDeliveries(){
       }
     }
   }
-  render(){
+
+
+
+render(){
+  const driversList =  this.state.months.map((data) =>
+  <div>
+      <div className="card2" key={data}>
+          <img className="images" src={storm} />
+          <div className="App-cont">
+          <p className="App-Details">Name: joaquin phoenix <br></br>
+            <span>Deliveries: 30</span><br></br>
+            <span>Mode: Bakkie</span>
+          </p>
+          </div>
+    </div>
+  </div>
+)
   return (
     <div className="App">
       <body >
@@ -150,7 +168,10 @@ getDeliveries(){
         </div>
         <div className="App-container">
           <div className={this.state.stats ? "App-show" : "App-hide"} >
-            <h4>Drivers</h4>
+          <h4>Drivers</h4>
+          <div class="cards" >
+            {driversList}
+            </div>
           </div>
 
           <div className={this.state.drivers ? "App-show" : "App-hide"}>
