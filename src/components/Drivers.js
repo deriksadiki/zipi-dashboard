@@ -8,6 +8,8 @@ export default class Drivers extends React.Component{
         this.state ={
             driverKeys: [],
               driversArr: [],
+              pending: [],
+              accepted: [],
               data : [],
               loading:true,
               months : ["January", "February", "March", "April", "May", "June",
@@ -24,14 +26,22 @@ export default class Drivers extends React.Component{
             var details = drivers.val();
             var keys =  Object.keys(details);
             var tempArr =  new Array()
+            var tempAccepted =  new Array();
+            var tempPending =  new Array()
             for (var x = 0; x < keys.length; x++){
-                tempArr.push(details[keys[x]].month)
+              if (details[keys[x]].status == "pending")
+                tempPending.push(details[keys[x]])
+              else
+                tempAccepted.push(details[keys[x]])
+              tempArr.push(details[keys[x]].month)
             }
             this.countDrivers(tempArr)
             this.setState({
               driverKeys: keys,
               driversArr: details,
-              loading: false
+              loading: false,
+              pending: tempPending,
+              accepted: tempAccepted
             })
           }
         })

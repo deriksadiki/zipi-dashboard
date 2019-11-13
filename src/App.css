@@ -30,9 +30,8 @@ h4{
  margin-right: 9%;
 }
 .App-icons{
-
-  margin-left: 8%; 
-  font-size: 35px;
+  margin-left: 3%; 
+  font-size: 34px;
   padding: 0px 15px;
   color: rgb(202, 200, 200);
 }
@@ -77,9 +76,6 @@ div ul li::before {
   display: block;
 }
 .card {
-  align-content: center;
-  align-items: center;
-  text-align: center;
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
   padding: 1rem;
@@ -89,7 +85,13 @@ div ul li::before {
 }
 .App-Details{
   font-size: 18px;
-  margin-top: 0vh;
+  margin-top: 1vh;
+}
+.App-Details2{
+  text-align: center;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size: 21px;
+  margin-top: 1vh;
 }
 
 .card2 {
@@ -108,24 +110,22 @@ div ul li::before {
   transform: scale(1.2); 
 }
 .cards {
-  max-width: 12 00px;
+  max-width: 1200px;
   display: grid;
   grid-gap: 2rem;
 }
 .card:hover {
   box-shadow: 0 10px 20px 0 rgba(0,0,0,0.2);
 }
-
 .images{
  height: 10rem;
  width: 100%;
 }
-
 @media (max-width: 800px) {
-  .cards { grid-template-columns: repeat(2, 1fr);  grid-gap: 3.5rem;}
+  .cards { grid-template-columns: repeat(2, 1fr);  grid-gap: 4rem;}
  .card{
   height: 12rem;
-  margin-left: -17%;
+  margin-left: -20%;
  }
  .App-menu{
   font-size: 19px;
@@ -133,14 +133,30 @@ div ul li::before {
  .App-header  {
   width: 15%;
   }
+  .App-modal-content{
+    width:61.8%;
+    height: 55%;
+  }
+  .App-icons{
+    font-size: 40px;
+  }
+  .card2{
+    height: 17rem;
+    font-size: 25px;
+    margin-left: -17%;
+   }
 }
-
 @media (max-width: 600px) {
   .cards { grid-template-columns: repeat(1, 1fr); grid-gap:2rem}
   .card{
     height: 12rem;
     font-size: 25px;
-    margin-left: -13%;
+    margin-left: -12%;
+   }
+   .card2{
+    height: 17rem;
+    font-size: 25px;
+    margin-left: -11%;
    }
    .App-menu{
     margin-right: 6%;
@@ -150,18 +166,45 @@ div ul li::before {
     width: 29%;
     transition: 0.5s;
   }
-
+  .App-modal-content{
+    width:79%;
+    height: 72%;
+  }
+  .App-Details2{
+    font-size: 17.5px;
+  }
+  .App-icons{
+    font-size: 31px;
+  }
+/* .App-container{
+  margin-left: 20px;
+} */
 }
 @media (min-width: 900px) {
   .cards { grid-template-columns: repeat(3, 1fr); }
+  .App-modal-content{
+    width:28%;
+    height: 66.8%;
+  }
 }
-
-
-
+.App-buttons{
+  display: block;
+}
+.App-button{
+  width: 14vw;
+  background-color: green;
+  height: 6vh;
+  color: white;
+}
+.App-button2{
+  width: 13.8vw;
+  height: 6vh;
+  background-color: rgb(204, 18, 18);
+  color: white;
+}
 .iconColors{
   color: #40b99d;
 }
-
 .App-image{
   height:120%;
   text-align: center;
@@ -199,10 +242,8 @@ div ul li::before {
 .App-modal-content{
   background-color: #fefefe;
   margin: auto;
-  padding: 20px;
   border: 1px solid #888;
-  width: 80%;
-  height: 40%;
+
 }
 .App-close{
   color: #aaaaaa;
