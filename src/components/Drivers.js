@@ -11,6 +11,9 @@ export default class Drivers extends React.Component{
               pending: [],
               accepted: [],
               data : [],
+              bikes:[],
+              bakkies:[],
+              trucks:[],
               loading:true,
               months : ["January", "February", "March", "April", "May", "June",
               "July", "August", "September", "October", "November", "December"]
@@ -27,13 +30,23 @@ export default class Drivers extends React.Component{
             var keys =  Object.keys(details);
             var tempArr =  new Array()
             var tempAccepted =  new Array();
-            var tempPending =  new Array()
+            var tempPending =  new Array();
+            var tempBikes =  new Array()
+            var tempBakkies =  new Array()
+            var tempTrucks =  new Array()
             for (var x = 0; x < keys.length; x++){
               if (details[keys[x]].status == "pending")
                 tempPending.push(details[keys[x]])
-              else
+              else{
+                if (details[keys[x]].mode == "Bike")
+                   tempBikes.push(details[keys[x]])
+                else if (details[keys[x]].mode == "Bakkie")
+                    tempBakkies.push(details[keys[x]])
+                else if (details[keys[x]].mode == "Truck")
+                   tempTrucks.push(details[keys[x]])
+                tempArr.push(details[keys[x]].month)
                 tempAccepted.push(details[keys[x]])
-              tempArr.push(details[keys[x]].month)
+              }
             }
             this.countDrivers(tempArr)
             this.setState({
@@ -41,7 +54,10 @@ export default class Drivers extends React.Component{
               driversArr: details,
               loading: false,
               pending: tempPending,
-              accepted: tempAccepted
+              accepted: tempAccepted,
+              bakkies: tempBakkies,
+              bikes: tempBikes,
+              trucks: tempTrucks
             })
           }
         })
