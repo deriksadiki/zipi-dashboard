@@ -33,8 +33,8 @@ export default class Deliveries extends React.Component{
             for (var  i = 0; i < innerKeys.length; i++){
                 var tempStr =  new  String()
                 tempStr = innerData[innerKeys[i]].completetionDetails
-                var month = tempStr.split(' ')[0]
-                tempArr.push(month)
+                //var month = tempStr.split(' ')[0]
+                //tempArr.push(month)
             }
           })
         }

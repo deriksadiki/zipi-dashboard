@@ -1,12 +1,13 @@
 import * as firebase from 'firebase'
 var firebaseConfig = {
-    apiKey: "AIzaSyDD5e6xEvq7J53_cdj9K2BOrXGs23TTxJU",
-    authDomain: "my-awesome-project-7b82d.firebaseapp.com",
-    databaseURL: "https://my-awesome-project-7b82d.firebaseio.com",
-    projectId: "my-awesome-project-7b82d",
-    storageBucket: "my-awesome-project-7b82d.appspot.com",
-    messagingSenderId: "1086302413473",
-    appId: "1:1086302413473:web:d7d4a96c41ba2608"
+  apiKey: "AIzaSyDmxvEat9bQme3dRK5_Z79-tLWYrptYb6A",
+  authDomain: "zipi-app.firebaseapp.com",
+  databaseURL: "https://zipi-app.firebaseio.com",
+  projectId: "zipi-app",
+  storageBucket: "zipi-app.appspot.com",
+  messagingSenderId: "1060972970372",
+  appId: "1:1060972970372:web:787f7055d0de929a92ddd1",
+  measurementId: "G-NGXNY0KN8X"
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);

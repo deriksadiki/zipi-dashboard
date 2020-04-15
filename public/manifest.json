@@ -1,19 +1,19 @@
 {
-  "short_name": "JBL 2",
-  "name": "JBL 2",
+  "short_name": "Zipi Dashboard",
+  "name": "Zipi Dashboard",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "ic_notification_bgd_icon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "ic_notification.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "ic_notification.png",
       "type": "image/png",
       "sizes": "512x512"
     }
