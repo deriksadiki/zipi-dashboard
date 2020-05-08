@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import { Doughnut, Line, Bar, Bubble,Pie} from 'react-chartjs-2';
 import firebase from '../firebaseConfig'
+import '../App.css';
 
 export default class Drivers extends React.Component{
     constructor(props){
@@ -14,6 +15,7 @@ export default class Drivers extends React.Component{
               bikes:[],
               bakkies:[],
               trucks:[],
+              showStats: false,
               loading:true,
               months : ["January", "February", "March", "April", "May", "June",
               "July", "August", "September", "October", "November", "December"]
@@ -35,17 +37,32 @@ export default class Drivers extends React.Component{
             var tempBakkies =  new Array()
             var tempTrucks =  new Array()
             for (var x = 0; x < keys.length; x++){
-              if (details[keys[x]].status == "pending")
-                tempPending.push(details[keys[x]])
-              else{
-                if (details[keys[x]].mode == "Bike")
-                   tempBikes.push(details[keys[x]])
-                else if (details[keys[x]].mode == "Bakkie")
-                    tempBakkies.push(details[keys[x]])
-                else if (details[keys[x]].mode == "Truck")
-                   tempTrucks.push(details[keys[x]])
+              if (details[keys[x]].status == "pending"){
+                let tempObj = details[keys[x]];
+                tempObj.key = keys[x];
+                tempPending.push(tempObj)
                 tempArr.push(details[keys[x]].month)
-                tempAccepted.push(details[keys[x]])
+              }
+              else{
+                if (details[keys[x]].mode == "Bike"){
+                  let tempObj = details[keys[x]];
+                  tempObj.key = keys[x];
+                   tempBikes.push(tempObj)
+                }
+                else if (details[keys[x]].mode == "1 Ton Bakkie"){
+                  let tempObj = details[keys[x]];
+                  tempObj.key = keys[x];
+                    tempBakkies.push(tempObj)
+                }
+                else{
+                  let tempObj = details[keys[x]];
+                  tempObj.key = keys[x];
+                  tempTrucks.push(tempObj)
+                }
+                tempArr.push(details[keys[x]].month)
+                let tempObj = details[keys[x]];
+                tempObj.key = keys[x];
+                tempAccepted.push(tempObj)
               }
             }
             this.countDrivers(tempArr)
@@ -63,6 +80,7 @@ export default class Drivers extends React.Component{
         })
       }
 
+
       countDrivers(drivers){
         var tempArr =  new Array()
           for (var i = 0; i < this.state.months.length; i++){
@@ -78,8 +96,34 @@ export default class Drivers extends React.Component{
             data:{
                 labels: this.state.months,
                 datasets: [{
-                    backgroundColor: 'rgb(191, 86, 151)',
-                    borderColor: 'rgb(255, 99, 132)',
+                  backgroundColor: [
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
                     data: tempArr,
                 }],
                 options: { 
@@ -95,7 +139,10 @@ export default class Drivers extends React.Component{
 
     render(){
         return(
-            <Bar data={this.state.data} legend={false} />
+            <div>
+              <Bar data={this.state.data} legend={false} />
+              </div>
+
         )
     }
 }

@@ -1,5 +1,5 @@
 .App-body {
-  border: 1px solid rgb(185, 185, 185);
+  border: 1px solid rgba(255, 255, 255, 0.507);
   height: 7vh;
 }
 .App-container{
@@ -118,9 +118,13 @@ div ul li::before {
 .card:hover {
   box-shadow: 0 10px 20px 0 rgba(0,0,0,0.2);
 }
+.images2{
+  height: 10rem;
+  width: 100%;
+}
 .images{
  height: 10rem;
- width: 100%;
+ width: 70%;
 }
 @media (max-width: 800px) {
   .cards { grid-template-columns: repeat(2, 1fr);  grid-gap: 4rem;}
@@ -205,7 +209,7 @@ div ul li::before {
   .cards { grid-template-columns: repeat(3, 1fr); }
   .App-modal-content{
     width:28%;
-    height: 62.8%;
+    height: 65%;
   }
   .App-button{
     width: 13.9vw;
@@ -215,7 +219,7 @@ div ul li::before {
   }
 }
 .App-buttons{
-  padding-top: 22px
+  margin-top: -5%;
 }
 .App-button{
   background-color: green;
@@ -303,4 +307,12 @@ div ul li::before {
   font-size:30px;
   cursor:pointer;
   float: left;
+}
+
+.x, .y, .z, .driverStats, .tripStats, .deliveryStats{
+  display: none;
+}
+
+.ShowDriverStats{
+  display: block;
 }

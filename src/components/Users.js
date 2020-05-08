@@ -26,6 +26,7 @@ export default class Users extends React.Component{
           var keys = Object.keys(details);
           var tempArray = new Array();
           var counter =  new Array();
+          let usersArr = new Array();
           counter.push(details[keys[0]].month)
           for (var x = 0; x < keys.length; x++){
               var track = false;
@@ -38,13 +39,14 @@ export default class Users extends React.Component{
                   counter.push(details[keys[x]].month)
               }
             tempArray.push(details[keys[x]].month)
+            usersArr .push(details[keys[x]])
           }
           var months = ["January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"];
           this.sortMonths(tempArray, months);
           this.setState({
             usersKeys: keys,
-            usersArr: details,
+            usersArr: usersArr ,
             loading: false
             })
           }

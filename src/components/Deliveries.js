@@ -7,6 +7,7 @@ export default class Deliveries extends React.Component{
         super();
         this.state = {
             data: [],
+            deliveries: [],
             loading:true,
             DeliveriesKeys: 0,
             months : ["January", "February", "March", "April", "May", "June",
@@ -25,6 +26,7 @@ export default class Deliveries extends React.Component{
         var keys = Object.keys(details);
         var tempKeys = 0
         var tempArr =  new Array();
+        let allDeliveries =  new Array();
         for (var x = 0; x < keys.length; x++){
           firebase.database().ref('completedDeliveries/' + keys[x]).on('value', data =>{
             var innerData =  data.val();
@@ -32,14 +34,15 @@ export default class Deliveries extends React.Component{
             tempKeys += innerKeys.length;
             for (var  i = 0; i < innerKeys.length; i++){
                 var tempStr =  new  String()
-                tempStr = innerData[innerKeys[i]].completetionDetails
-                //var month = tempStr.split(' ')[0]
-                //tempArr.push(month)
+                allDeliveries.push(innerData[innerKeys[i]])
+                tempStr = innerData[innerKeys[i]]
+                tempArr.push(innerData[innerKeys[i]].month)
             }
           })
         }
         this.sortDeliveries(tempArr)
        this.setState({
+         deliveries: allDeliveries,
          DeliveriesKeys: tempKeys,
          loading: false
        })
