@@ -48,6 +48,7 @@ export default class Pending extends React.Component{
       countDrivers(drivers){
         var tempArr =  new Array()
         var labels =  new Array()
+        drivers.sort()
           for (var i = 0; i < drivers.length; i++){
               var total = 0;
               labels.push(drivers[i])

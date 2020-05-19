@@ -33,15 +33,13 @@ export default class Deliveries extends React.Component{
             var innerKeys = Object.keys(innerData)
             tempKeys += innerKeys.length;
             for (var  i = 0; i < innerKeys.length; i++){
-                var tempStr =  new  String()
-                allDeliveries.push(innerData[innerKeys[i]])
-                tempStr = innerData[innerKeys[i]]
-                tempArr.push(innerData[innerKeys[i]].month)
+                allDeliveries.push(innerData[innerKeys[i]].deliveryDetails)
+                tempArr.push(innerData[innerKeys[i]].completionDetails)
             }
           })
         }
         this.sortDeliveries(tempArr)
-       this.setState({
+        this.setState({
          deliveries: allDeliveries,
          DeliveriesKeys: tempKeys,
          loading: false
@@ -55,7 +53,7 @@ export default class Deliveries extends React.Component{
       for (var x = 0; x < this.state.months.length; x++){
           var total = 0;
           for (var i = 0; i < Deliveries.length; i++){
-              if (this.state.months[x] == Deliveries[i]){
+              if (this.state.months[x] == Deliveries[i].split(' ')[0]){
                   total++
               }
           }

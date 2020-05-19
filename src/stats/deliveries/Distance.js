@@ -22,17 +22,17 @@ export default class Distance extends React.Component{
         driversArr : this.Deliveries.state.deliveries,
       })
       let tempArr =  new Array();
-      tempArr.push(this.Deliveries.state.deliveries[0].date.split(' ')[0])
+      tempArr.push(this.Deliveries.state.deliveries[0].dropOffTime.split(' ')[0])
       for (var x = 0; x < this.Deliveries.state.deliveries.length; x++){
         let counter = true
           for (var i = 0; i < tempArr.length; i++){
-            if (this.Deliveries.state.deliveries[x].date.split(' ')[0] === tempArr[i]){
+            if (this.Deliveries.state.deliveries[x].dropOffTime.split(' ')[0] === tempArr[i]){
                counter = false
             }
            
           }
           if (counter)
-              tempArr.push(this.Deliveries.state.deliveries[x].date.split(' ')[0])
+              tempArr.push(this.Deliveries.state.deliveries[x].dropOffTime.split(' ')[0])
       }
       this.countDrivers(tempArr)
       setTimeout(() => {
@@ -52,8 +52,8 @@ export default class Distance extends React.Component{
               var total = 0;
               labels.push(drivers[i])
               for (var x = 0; x < this.Deliveries.state.deliveries.length; x++){
-                  if (drivers[i] === this.Deliveries.state.deliveries[x].date.split(' ')[0]){
-                    total = total + this.Deliveries.state.deliveries[x].tripDetails.distance
+                  if (drivers[i] === this.Deliveries.state.deliveries[x].dropOffTime.split(' ')[0]){
+                    total = total + parseInt(this.Deliveries.state.deliveries[x].distance)
                   }
               }
               tempArr.push(total)

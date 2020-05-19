@@ -375,11 +375,11 @@ const truckDrivers =  this.state.truckDrivers.map((data,index) =>
                   <div className="App-align" ><All ref={ref=>{this.All = ref}}/></div> 
                   </div>
 
-                  <div className="card"><span class="iconColors"><a class="fa fa-map-marker"></a>  Top Areas</span> <span style={{float:"right"}}>{this.state.pending.length}</span><br></br>
+                  <div className="card"><span class="iconColors"><a class="fa fa-map-marker"></a>  Top Areas</span> <span style={{float:"right"}}></span><br></br>
                   <div className="App-align" ><DeliveryAreas /></div> 
                   </div>
 
-                  <div className="card"><span class="iconColors"><a class="fa fa-history"></a>  Distances</span> <span style={{float:"right"}}>{this.state.DeliveriesTot}</span><br></br>
+                  <div className="card"><span class="iconColors"><a class="fa fa-history"></a>  Distances</span> <span style={{float:"right"}}></span><br></br>
                   <div className="App-align" ><Distance /></div> 
                   </div>
             </div>
@@ -389,7 +389,7 @@ const truckDrivers =  this.state.truckDrivers.map((data,index) =>
           <div className={this.state.clientStats ? "App-show" : "App-hide"}>
           <h4>Client Stats</h4>
           <div class="cards">
-            <div className="card"><span class="iconColors"><a class="	fa fa-plane"></a>  Transportation</span> <span style={{float:"right"}}>{this.state.driversArr.length}</span><br></br>
+            <div className="card"><span class="iconColors"><a class="	fa fa-plane"></a>  Transportation</span> <span style={{float:"right"}}></span><br></br>
                   <div className="App-align" ><Transport /></div> 
                   </div>
                   <div className="card"><span class="iconColors"><a class="	fa fa-id-badge"></a>  Resgistrations</span> <span style={{float:"right"}}>{this.state.testNum}</span><br></br>

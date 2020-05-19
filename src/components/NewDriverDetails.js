@@ -92,7 +92,7 @@ export default class DriverDetails extends React.Component{
     this.setState({help:false, moreInfo:false})
   }
   acceptDriver = () =>{
-    firebase.database().ref('drivers/' + this.state.key).update({status: "accepted"})
+    firebase.database().ref('drivers/' + this.state.key).update({status: "accepted", totalTrips: "0"})
     this.setState({help:false, moreInfo:false})
     let xhr = new XMLHttpRequest();
     let values = `email=${this.state.email}`;
