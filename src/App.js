@@ -13,17 +13,22 @@ import Deliveries from './components/Deliveries'
 import HelpModal from './components/HelpModal'
 import DriverDetails from './components/NewDriverDetails'
 
+//Install ExportToCSV package before running. I didn't update Package.json
+import {ExportToCsv} from 'export-to-csv-file'
+
 //stats
 import Accepted from './stats/drivers/Accepted'
 import Pending from './stats/drivers/Pending'
 import Area from './stats/drivers/Area'
-import Transport from './stats/clients/Transport';
+import Transport from './stats/clients/Transport'
 import All from './stats/deliveries/All'
 import  DeliveryAreas from './stats/deliveries/DeliveryAreas'
-import Distance from './stats/deliveries/Distance';
+import Distance from './stats/deliveries/Distance'
 import ClientByDates from './stats/clients/ClientByDates'
 
-class  App  extends Component {
+
+
+class App extends Component {
   constructor(props){
     super()
     this.state = {
@@ -54,11 +59,13 @@ class  App  extends Component {
       height : props.height,
       testNum : 0,
       DeliveriesStats: false,
-      clientStats: false
+      clientStats: false,
+      driver_data: []
     };
   }
 
   componentDidMount(){
+    this.getDriverDataFromFirebase();
     if (window.innerWidth > 800){
       this.setState({menu:true})
      }
@@ -88,7 +95,7 @@ class  App  extends Component {
       bikeDrives: this.Drivers.state.bikes,
       truckDrivers: this.Drivers.state.trucks,
       bakkieDrivers: this.Drivers.state.bakkies,
-      driversArr : this.Drivers.state.accepted    
+      driversArr : this.Drivers.state.accepted 
     })
     setTimeout(() => {
       this.getDrivers();
@@ -195,7 +202,46 @@ showPending = () =>{
   openHelp = (num, data) =>{
     this.DriverDetails.openHelp(num, data)
   }
+
+  getDriverDataFromFirebase(){
+    var driver_data = new Array();
+    firebase.database().ref('drivers').on('value', data => {
+      var data = data.val();
+      var key;
+      for(key in data){
+        driver_data.push(data[key]);
+      }
+      this.setState({driver_data: driver_data});
+    });
+  }
+
+  exportDrivers(){
+    var data = this.state.driver_data;
+    this.makeExcel(data);
+  }
+
+  makeExcel(data){
+    console.log(data);
+    const options = { 
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalSeparator: '.',
+      showLabels: true, 
+      showTitle: true,
+      title: 'CSV',
+      useTextFile: false,
+      useBom: true,
+      useKeysAsHeaders: false,
+      headers: ['Licence', 'Date Reg', 'Email Address', 'Licence Date', 'Surname', 'ID / Passport', 'Licence', 'Name', 'Month', 'Cell No', 'Date', 'Status', 'Surname']
+    };
+   
+
+  const csvExporter = new ExportToCsv(options);
+   
+  csvExporter.generateCsv(data);
+  }
 render(){
+
   const pending = this.state.pending.map((data, index) =>
   <div>
       <div className="card2" key={data.key} onClick={ () => this.openHelp( index, data)}>
@@ -280,16 +326,18 @@ const truckDrivers =  this.state.truckDrivers.map((data,index) =>
         <div className="App-body">
         <span className="menu" onClick={this.shownav}>&#9776;</span>
            <ul className="App-menu">
+              <li onClick={()=>{this.exportDrivers()}}>Export to CSV</li>
               <li>Users</li>
               <li>Settings</li>
               <li>Logout</li>
+
               <li onClick={this.showHelpModal}>Help</li>
            </ul>
         </div>
         <div className="App-container">
           <div className={this.state.stats ? "App-show" : "App-hide"} >
           <h4>Drivers</h4>
-          <div class="cards" >
+          <div class="cards">
             {driversList}
             </div>
           </div>
