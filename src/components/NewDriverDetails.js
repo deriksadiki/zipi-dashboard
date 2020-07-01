@@ -93,7 +93,7 @@ export default class DriverDetails extends React.Component{
   }
   acceptDriver = () =>{
     firebase.database().ref('drivers/' + this.state.key).update({status: "accepted", totalTrips: "0",availability: true, 
-    img: "https://pbs.twimg.com/profile_images/1193092491412725765/siN2uIKD_400x400.jpg" })
+    img: "https://pbs.twimg.com/profile_images/1193092491412725765/siN2uIKD_400x400.jpg", totAmount: 0 })
     this.setState({help:false, moreInfo:false})
     let xhr = new XMLHttpRequest();
     let values = `email=${this.state.email}`;
