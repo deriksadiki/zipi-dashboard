@@ -211,6 +211,10 @@ div ul li::before {
     width:28%;
     height: 65%;
   }
+  .App-modal-content2{
+    width:50%;
+    height: 75%;
+  }
   .App-button{
     width: 13.9vw;
   }
@@ -315,4 +319,8 @@ div ul li::before {
 
 .ShowDriverStats{
   display: block;
+}
+
+.Editbtn{
+  text-align: center;
 }
