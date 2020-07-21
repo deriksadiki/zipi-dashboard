@@ -2,6 +2,18 @@ import React from 'react';
 import '../App.css'
 import firebase from '../firebaseConfig';
 
+let id = '';
+let report = '';
+let insuarance = '';
+let proPic = '';
+let certificate = '';
+let banking = '';
+let natisDoc = '';
+let license = '';
+let accNo = '';
+let branchCode = '';
+let docCounter =  false;
+
 export default class DriverDetails extends React.Component{
     constructor(props){
         super(props)
@@ -136,41 +148,77 @@ export default class DriverDetails extends React.Component{
   }
 
   selectID(event, tableId){
-    document.getElementById(tableId).style.backgroundColor =  '#ffe200';
     if (event.target.files && event.target.files[0]) {
-      // alert(event.target.files[0].name)
-      // let reader = new FileReader();
-      //   reader.onload = (event) => {
-      //     let x = event.target.result
-      //     let imageRef =  firebase.storage().ref('docs')
-      //     let task = imageRef.putString(x,'data_url')
-      //     task.on('state_changed',
-      //     function progress(snapshot){
-      //         var percentage = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-      //         console.log(percentage)
-      //     },
-      //     function error(err){
-      //       console.log(err)
-      //     },
-      //     function complete(){
-      //       var Url_File = task.snapshot.ref.getDownloadURL().then(function (URL) {
-      //         console.log(URL)
-      //     });
+      let name = event.target.files[0].name;
+      let reader = new FileReader();
+        reader.onload = (event) => {
+          let x = event.target.result
+          let imageRef =  firebase.storage().ref(name)
+          let task = imageRef.putString(x,'data_url')
+          task.on('state_changed',
+          function progress(snapshot){
+              var percentage = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+              console.log(percentage)
+          },
+          function error(err){
+            console.log(err)
+          },
+          function complete(){
+            var Url_File = task.snapshot.ref.getDownloadURL().then(function (URL) {
+                if (tableId === "ID")
+                    id = URL
+                else if (tableId === "Inspection")
+                    report = URL
+                else if (tableId === "Lice")
+                    license = URL
+                else if (tableId === "Car")
+                    insuarance = URL
+                else if (tableId === "Pic")
+                    proPic = URL
+                else if (tableId === "Roadworthy")
+                    certificate = URL
+                else if (tableId === "Bank")
+                    banking = URL
+                else if (tableId === "Nat")
+                    natisDoc = URL
+              document.getElementById(tableId).style.backgroundColor =  '#ffe200';
+              let docCounter = true
+          });
           
-      //     }
-      //    );
-      //   }
-      //   reader.readAsDataURL(event.target.files[0]);
+          }
+         );
+        }
+        reader.readAsDataURL(event.target.files[0]);
       }
   }
 
-  saveImage(img){
-   
-    // var storageRef = firebase.storage().ref('pictures/' + username + "jpg");
-    // storageRef.getDownloadURL().then((url)=>{
-    //   console.log(url)
-    // })
+
+  saveData = () =>{
+    if (docCounter){
+    firebase.database().ref('drivers/' + this.state.key).update({ 
+      img : proPic,
+      account_number: this.state.accNo,
+      branch_code: this.state.branchCode,
+      ID : id,
+      natisDoc: natisDoc,
+      bankingDetails: banking,
+      roadWorthyCertificate: certificate,
+      inspectionReport: report,
+      insuarance: insuarance,
+      license: license
+    }).then(()=>{
+      this.hideEdit()
+    })
+  }else{
+    firebase.database().ref('drivers/' + this.state.key).update({ 
+      account_number: this.state.accNo,
+      branch_code: this.state.branchCode,
+    }).then(()=>{
+      this.hideEdit()
+    })
   }
+  }
+
     render(){
         return(
         <div>
@@ -197,8 +245,8 @@ export default class DriverDetails extends React.Component{
                     </td>
                   </tr>
 
-                  <tr id="Pic">
-                    <td>
+                  <tr >
+                    <td id="Pic">
                       <label for="Picture">Picture</label>
                     <input type="file" id="Picture" onChange={(e)=>{this.selectID(e, "Pic")}}/>
                     </td>
@@ -217,9 +265,9 @@ export default class DriverDetails extends React.Component{
                   </tr>
                 </table>
                 <div className="inputs">
-                  <input placeholder="Account Number" /><br></br>
-                  <input placeholder="Branch Code" /><br></br>
-                  <button className="saveBtn" >Save</button>
+                  <input placeholder="Account Number" value={this.state.accNo} onChange={(e)=>{this.setState({accNo:e.target.value})}} /><br></br>
+                  <input placeholder="Branch Code" value={this.state.branchCode}  onChange={(e)=>{this.setState({branchCode:e.target.value})}}/><br></br>
+                  <button className="saveBtn" onClick={this.saveData}>Save</button>
                 </div>
             </div>
           </div>  
