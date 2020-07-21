@@ -2,6 +2,9 @@
   border: 1px solid rgba(255, 255, 255, 0.507);
   height: 7vh;
 }
+table, th, td {
+  border: 1px solid rgb(29, 29, 29);
+}
 .App-container{
   margin-left: 13%;
   margin-right: 5%;
@@ -22,6 +25,18 @@ h4{
   left: 0;
   padding-top: 20px;
   transition: 0.9s;
+}
+
+.saveBtn{
+  background-color: green;
+  height: 7vh;
+  color: white;
+  width: 10vw;
+  margin-top: 10px;
+}
+
+.inputs{
+  text-align: center;
 }
 
 .App-menu{
@@ -68,7 +83,7 @@ div ul li::before {
 .App-drivers{
   color: #d3c560;
 }
-.App-hide{
+.App-hide, #IDno, #report, #license, #Insurance, #Picture, #Certificate, #Banking, #Natis{
   display: none;
 }
 .App-show{
@@ -212,7 +227,7 @@ div ul li::before {
     height: 65%;
   }
   .App-modal-content2{
-    width:50%;
+    width:70%;
     height: 75%;
   }
   .App-button{

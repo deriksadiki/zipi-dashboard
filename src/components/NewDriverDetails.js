@@ -59,7 +59,18 @@ export default class DriverDetails extends React.Component{
       postalCode: data.postalCode,
       key : data.key,
       img: data.img,
-      Showbuttons: false
+      Showbuttons: false,
+      id: '',
+      report:'',
+      insuarance: '',
+      proPic: '',
+      certificate: '',
+      banking: '',
+      natisDoc: '',
+      license:'',
+      accNo:'',
+      branchCode: ''
+
     })
   }
 
@@ -124,30 +135,32 @@ export default class DriverDetails extends React.Component{
     xhr.send()
   }
 
-  selectID(event){
+  selectID(event, tableId){
+    document.getElementById(tableId).style.backgroundColor =  '#ffe200';
     if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-        reader.onload = (event) => {
-          let x = event.target.result
-          let imageRef =  firebase.storage().ref('docs')
-          let task = imageRef.putString(x,'data_url')
-          task.on('state_changed',
-          function progress(snapshot){
-              var percentage = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-              console.log(percentage)
-          },
-          function error(err){
-            console.log(err)
-          },
-          function complete(){
-            var Url_File = task.snapshot.ref.getDownloadURL().then(function (URL) {
-              console.log(URL)
-          });
+      // alert(event.target.files[0].name)
+      // let reader = new FileReader();
+      //   reader.onload = (event) => {
+      //     let x = event.target.result
+      //     let imageRef =  firebase.storage().ref('docs')
+      //     let task = imageRef.putString(x,'data_url')
+      //     task.on('state_changed',
+      //     function progress(snapshot){
+      //         var percentage = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+      //         console.log(percentage)
+      //     },
+      //     function error(err){
+      //       console.log(err)
+      //     },
+      //     function complete(){
+      //       var Url_File = task.snapshot.ref.getDownloadURL().then(function (URL) {
+      //         console.log(URL)
+      //     });
           
-          }
-         );
-        }
-        reader.readAsDataURL(event.target.files[0]);
+      //     }
+      //    );
+      //   }
+      //   reader.readAsDataURL(event.target.files[0]);
       }
   }
 
@@ -164,12 +177,55 @@ export default class DriverDetails extends React.Component{
           <div className={this.state.showEdit ? "App-modal" : "App-hide"}>
             <div className="App-modal-content2"> 
             <span className="App-close" onClick={this.hideEdit}>&times;</span><br></br>
-                <input type="file" onChange={this.selectID}/>
+                <table>
+                  <tr>  
+                    <td id="ID">
+                      <label for="IDno">ID Document</label>
+                    <input type="file" id="IDno" onChange={(e)=>{this.selectID(e, "ID")}}/>
+                    </td>
+                    <td id="Inspection">
+                    <label for="report">Inspection Report</label>
+                    <input type="file" id="report" onChange={(e)=>{this.selectID(e,"Inspection")}}/>
+                    </td>
+                    <td id="Lice">
+                    <label for="license">Driver's License</label>
+                    <input type="file" id="license" onChange={(e)=>{this.selectID(e, "Lice")}}/>
+                    </td>
+                    <td id="Car">
+                    <label for="Insurance">Car Insurance</label>
+                    <input type="file" id="Insurance" onChange={(e)=>{this.selectID(e, "Car")}}/>
+                    </td>
+                  </tr>
+
+                  <tr id="Pic">
+                    <td>
+                      <label for="Picture">Picture</label>
+                    <input type="file" id="Picture" onChange={(e)=>{this.selectID(e, "Pic")}}/>
+                    </td>
+                    <td id="Roadworthy">
+                    <label for="Certificate">Roadworthy Certificate </label>
+                    <input type="file" id="Certificate" onChange={(e)=>{this.selectID(e, "Roadworthy")}}/>
+                    </td>
+                    <td id="Bank">
+                    <label for="Banking">Banking Details</label>
+                    <input type="file" id="Banking" onChange={(e)=>{this.selectID(e, "Bank")}}/>
+                    </td>
+                    <td id="Nat">
+                    <label for="Natis">Natis Document</label>
+                    <input type="file" id="Natis" onChange={(e)=>{this.selectID(e, "Nat")}}/>
+                    </td>
+                  </tr>
+                </table>
+                <div className="inputs">
+                  <input placeholder="Account Number" /><br></br>
+                  <input placeholder="Branch Code" /><br></br>
+                  <button className="saveBtn" >Save</button>
+                </div>
             </div>
           </div>  
           <div className={this.state.help ? "App-modal" : "App-hide"}>
             <div className="App-modal-content">
-                <span className="App-close" onClick={(e)=>{this.selectID(e)}}>&times;</span><br></br>
+                <span className="App-close" onClick={this.hideHelp}>&times;</span><br></br>
                 <img className="images2" src={this.state.img} />
                   <div className="App-Details2">
                     <span style={{fontSize:23, fontWeight:'bold'}}>Personal Details</span><br></br>
