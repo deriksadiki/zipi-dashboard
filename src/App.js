@@ -354,13 +354,13 @@ const truckDrivers =  this.state.truckDrivers.map((data,index) =>
                 <div class="card"><span class="iconColors"><a class="fa fa-line-chart"></a> Deliveries</span> <span style={{float:"right"}}>{this.state.DeliveriesTot}</span><br></br>
                 <div className="App-align2" onClick={this.showDeliveryStats}><Deliveries ref={ref=>{this.Deliveries = ref}} /></div> 
                 </div>
-                <div className="card"><span class="iconColors"><a class="fa fa-motorcycle"></a> Bikes</span> <span style={{float:"right"}}>30</span><br></br>
+  <div className="card"><span class="iconColors"><a class="fa fa-motorcycle"></a> Bikes</span> <span style={{float:"right"}}>{this.state.bikeDrives.length}</span><br></br>
                 <div className="App-align"><img src={area_graph} className="App-image2"/></div> 
                 </div>
-                <div className="card"><span class="iconColors"><a class="fa fa-automobile"></a> Bakkies</span> <span style={{float:"right"}}>10</span><br></br>
+  <div className="card"><span class="iconColors"><a class="fa fa-automobile"></a> Bakkies</span> <span style={{float:"right"}}>{this.state.bakkieDrivers.length}</span><br></br>
                 <div className="App-align2"><img src={pie} className="App-image2"/></div> 
                 </div>
-                <div className="card"><span class="iconColors"><a class="fa fa-truck"></a> Trucks</span> <span style={{float:"right"}}>74</span><br></br>
+  <div className="card"><span class="iconColors"><a class="fa fa-truck"></a> Trucks</span> <span style={{float:"right"}}>{this.state.truckDrivers.length}</span><br></br>
                 <div className="App-align2"><img src={lastLine} className="App-image2"/></div> 
                 </div>
             </div>

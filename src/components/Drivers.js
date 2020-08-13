@@ -74,8 +74,7 @@ export default class Drivers extends React.Component{
               accepted: tempAccepted,
               bakkies: tempBakkies,
               bikes: tempBikes,
-              trucks: tempTrucks
-            })
+              trucks: tempTrucks            })
           }
         })
       }
