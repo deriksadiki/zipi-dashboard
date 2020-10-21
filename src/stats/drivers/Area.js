@@ -28,15 +28,19 @@ export default class Area extends React.Component{
         for (var x = 0; x < this.Drivers.state.accepted.length; x++){
           let counter = true
             for (var i = 0; i < tempArr.length; i++){
+              if (this.Drivers.state.accepted[x].suburb != undefined){
               let sub = this.Drivers.state.accepted[x].suburb
               if (sub.toLowerCase() === tempArr[i]){
                  counter = false
               }
-             
+             }
             }
+
             if (counter){
-              let word = this.Drivers.state.accepted[x].suburb
-                tempArr.push(word.toLowerCase())
+              if (this.Drivers.state.accepted[x].suburb != undefined){
+                let word = this.Drivers.state.accepted[x].suburb
+                  tempArr.push(word.toLowerCase())
+              }
             }
         }
         this.countDrivers(tempArr)
@@ -60,10 +64,12 @@ export default class Area extends React.Component{
               let init_cap=str[0].toUpperCase() + str.substring(1,str.length).toLowerCase();
               labels.push(init_cap)
               for (var x = 0; x < this.Drivers.state.accepted.length; x++){
+                if (this.Drivers.state.accepted[x].suburb != undefined){
                 let tmp = this.Drivers.state.accepted[x].suburb
                   if (drivers[i] === tmp.toLowerCase()){
                     total++;
                   }
+                }
               }
               tempArr.push(total)
           }

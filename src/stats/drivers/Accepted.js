@@ -27,13 +27,19 @@ export default class Accepted extends React.Component{
         for (var x = 0; x < this.Drivers.state.accepted.length; x++){
           let counter = true
             for (var i = 0; i < tempArr.length; i++){
-              if (this.Drivers.state.accepted[x].date.split(' ')[0] === tempArr[i]){
-                 counter = false
+              if (this.Drivers.state.accepted[x].date != undefined){
+                  if (this.Drivers.state.accepted[x].date.split(' ')[0] === tempArr[i]){
+                    counter = false
+                }
               }
-             
             }
-            if (counter)
+
+            if (counter){
+              if (this.Drivers.state.accepted[x].date != undefined){
                 tempArr.push(this.Drivers.state.accepted[x].date.split(' ')[0])
+              }
+              
+            }
         }
         this.countDrivers(tempArr)
       }
@@ -54,9 +60,11 @@ export default class Accepted extends React.Component{
               var total = 0;
               labels.push(drivers[i])
               for (var x = 0; x < this.Drivers.state.accepted.length; x++){
+                if (this.Drivers.state.accepted[x] != undefined){
                   if (drivers[i] === this.Drivers.state.accepted[x].date.split(' ')[0]){
                     total++;
                   }
+                }
               }
               tempArr.push(total)
           }

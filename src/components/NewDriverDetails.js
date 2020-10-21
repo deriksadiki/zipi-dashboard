@@ -182,7 +182,7 @@ export default class DriverDetails extends React.Component{
                 else if (tableId === "Nat")
                     natisDoc = URL
               document.getElementById(tableId).style.backgroundColor =  '#ffe200';
-              let docCounter = true
+              docCounter = true
           });
           
           }
