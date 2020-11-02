@@ -286,6 +286,18 @@ div ul li::before {
   background-color: rgb(0, 0, 0);
   background-color: rgb(0,0,0,0.4);
 }
+.App-modal2{
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  display: block;
+  left: 0;
+  top: 0;
+  padding-top: 1px;
+  position: fixed;
+  background-color: rgb(0, 0, 0);
+  background-color: rgb(0,0,0,0.4);
+}
 .Help-modal{
   height: 100%;
   width: 100%;
@@ -305,6 +317,40 @@ div ul li::before {
   height: 70%;
   width: 70%;;
 }
+
+.App-modal-content3{
+  background-color: #fefefe;
+  margin: auto;
+  border: 1px solid #888;
+  height: 99%;
+  width: 90%;;
+}
+
+.headerText{
+  color: white;
+  background-color: #4C58A0;
+  font-size: 23px;
+  font-weight:'bold';
+}
+.contentIcons{
+  font-size: 23px;
+}
+.driverImage{
+  height: 55%;
+  width: 40%;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+}
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 5px;
+
+}
+
 .App-modal-content{
   background-color: #fefefe;
   margin: auto;

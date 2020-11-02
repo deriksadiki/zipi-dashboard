@@ -60,7 +60,9 @@ class App extends Component {
       testNum : 0,
       DeliveriesStats: false,
       clientStats: false,
-      driver_data: []
+      driver_data: [],
+      panel : [],
+      car : []
     };
   }
 
@@ -95,7 +97,9 @@ class App extends Component {
       bikeDrives: this.Drivers.state.bikes,
       truckDrivers: this.Drivers.state.trucks,
       bakkieDrivers: this.Drivers.state.bakkies,
-      driversArr : this.Drivers.state.accepted 
+      driversArr : this.Drivers.state.accepted,
+      panel : this.Drivers.state.panel,
+      car: this.Drivers.state.car
     })
     setTimeout(() => {
       this.getDrivers();
@@ -250,6 +254,7 @@ render(){
           <p className="App-Details">{data.firstName} {data.surname}<br></br>
             <span>ID/Passport: {data.idNo}</span><br></br>
             <span>Mode: {data.mode}</span>
+            {/* <span>key : {data.key}</span> */}
           </p>
           </div>
     </div>
@@ -263,6 +268,7 @@ render(){
           <p className="App-Details">Name: {data.firstName} {data.surname}<br></br>
             <span>Deliveries: {data.totalTrips}</span><br></br>
             <span>Mode: {data.mode}</span>
+    {/* <span>key : {data.key}</span> */}
           </p>
           </div>
     </div>
@@ -274,7 +280,7 @@ render(){
   <img className="images2" src={data.img} />
       <div className="App-cont">
       <p className="App-Details">Name: {data.firstName} {data.surname}<br></br>
-<span>Deliveries: {data.totalTrips}</span><br></br>
+        <span>Deliveries: {data.totalTrips}</span><br></br>
         <span>Mode: {data.mode}</span>
       </p>
       </div>
@@ -362,6 +368,14 @@ const truckDrivers =  this.state.truckDrivers.map((data,index) =>
                 </div>
   <div className="card"><span class="iconColors"><a class="fa fa-truck"></a> Trucks</span> <span style={{float:"right"}}>{this.state.truckDrivers.length}</span><br></br>
                 <div className="App-align2"><img src={lastLine} className="App-image2"/></div> 
+                </div>
+
+                <div className="card"><span class="iconColors"><a class="	fa fa-bus"></a> Panel Vans</span> <span style={{float:"right"}}>{this.state.panel.length}</span><br></br>
+                <div className="App-align2"><img src='https://www.intmath.com/trigonometric-graphs/svg/svgphp-graphs-sine-cosine-amplitude-1-s6.svg' className="App-image2"/></div> 
+                </div>
+
+                <div className="card"><span class="iconColors"><a class="fa fa-cab"></a> Cars</span> <span style={{float:"right"}}>{this.state.car.length}</span><br></br>
+                <div className="App-align2"><img src='https://www.idashboards.com/wp-content/uploads/2017/10/line-graph.png' className="App-image2"/></div> 
                 </div>
             </div>
           </div>

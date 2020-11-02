@@ -15,6 +15,8 @@ export default class Drivers extends React.Component{
               bikes:[],
               bakkies:[],
               trucks:[],
+              panel: [],
+              car: [],
               showStats: false,
               loading:true,
               months : ["January", "February", "March", "April", "May", "June",
@@ -36,6 +38,8 @@ export default class Drivers extends React.Component{
             var tempBikes =  new Array()
             var tempBakkies =  new Array()
             var tempTrucks =  new Array()
+            var tempPanel = new Array();
+            var tempCars = new Array();
             for (var x = 0; x < keys.length; x++){
               if (details[keys[x]].status == "pending"){
                 let tempObj = details[keys[x]];
@@ -54,10 +58,20 @@ export default class Drivers extends React.Component{
                   tempObj.key = keys[x];
                     tempBakkies.push(tempObj)
                 }
-                else{
+                else if (details[keys[x]].mode == "onehalfton"){
                   let tempObj = details[keys[x]];
                   tempObj.key = keys[x];
                   tempTrucks.push(tempObj)
+                }
+                else if (details[keys[x]].mode == "Panel"){
+                  let tempObj = details[keys[x]];
+                  tempObj.key = keys[x];
+                  tempPanel.push(tempObj)
+                }
+                else if (details[keys[x]].mode == "Car"){
+                  let tempObj = details[keys[x]];
+                  tempObj.key = keys[x];
+                  tempCars.push(tempObj)
                 }
                 tempArr.push(details[keys[x]].month)
                 let tempObj = details[keys[x]];
@@ -65,6 +79,7 @@ export default class Drivers extends React.Component{
                 tempAccepted.push(tempObj)
               }
             }
+            console.log(tempAccepted)
             this.countDrivers(tempArr)
             this.setState({
               driverKeys: keys,
@@ -74,7 +89,10 @@ export default class Drivers extends React.Component{
               accepted: tempAccepted,
               bakkies: tempBakkies,
               bikes: tempBikes,
-              trucks: tempTrucks            })
+              trucks: tempTrucks,
+              panel: tempPanel,
+              car: tempCars           
+            })
           }
         })
       }

@@ -22,16 +22,19 @@ export default class Pending extends React.Component{
           driversArr : this.Drivers.state.pending,
         })
         let tempArr =  new Array();
+        
         tempArr.push(this.Drivers.state.pending[0].date.split(' ')[0])
         for (var x = 0; x < this.Drivers.state.pending.length; x++){
           let counter = true
             for (var i = 0; i < tempArr.length; i++){
-              if (this.Drivers.state.pending[x].date.split(' ')[0] === tempArr[i]){
-                 counter = false
-              }
+                if (this.Drivers.state.pending[x].date != undefined){
+                if (this.Drivers.state.pending[x].date.split(' ')[0] === tempArr[i]){
+                  counter = false
+                }
+            }
              
             }
-            if (counter)
+            if (counter && this.Drivers.state.pending[x].date != undefined)
                 tempArr.push(this.Drivers.state.pending[x].date.split(' ')[0])
         }
         this.countDrivers(tempArr)
@@ -53,9 +56,11 @@ export default class Pending extends React.Component{
               var total = 0;
               labels.push(drivers[i])
               for (var x = 0; x < this.Drivers.state.pending.length; x++){
+                if (this.Drivers.state.pending[x].date != undefined){
                   if (drivers[i] === this.Drivers.state.pending[x].date.split(' ')[0]){
                     total++;
                   }
+                }
               }
               tempArr.push(total)
           }

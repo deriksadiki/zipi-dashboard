@@ -42,7 +42,11 @@ export default class DriverDetails extends React.Component{
             Showbuttons:false,
             key: '',
             img: '',
-            showEdit: false
+            showEdit: false,
+            viewDriver : false,
+            date: '',
+            totAmount : 0,
+            totalTrips: ''
         }
     }
     
@@ -71,7 +75,9 @@ export default class DriverDetails extends React.Component{
       postalCode: data.postalCode,
       key : data.key,
       img: data.img,
+      date : data.date,
       Showbuttons: false,
+      totalTrips: data.totalTrips,
       id: '',
       report:'',
       insuarance: '',
@@ -81,7 +87,8 @@ export default class DriverDetails extends React.Component{
       natisDoc: '',
       license:'',
       accNo:'',
-      branchCode: ''
+      branchCode: '',
+      totAmount : data.totAmount
 
     })
   }
@@ -110,9 +117,12 @@ export default class DriverDetails extends React.Component{
       city: data.city,
       country :data.country,
       postalCode: data.postalCode,
+      totalTrips: data.totalTrips,
       Showbuttons: true,
       key : data.key,
       img: data.img,
+      date : data.date,
+      totAmount : data.totAmount
     })
   }
   hideHelp = () =>{
@@ -121,12 +131,21 @@ export default class DriverDetails extends React.Component{
 
   hideEdit = () =>{
     this.setState({
-      showEdit: false
+      showEdit: false,
+      viewDriver: false
     })
   }
   editDriver = () =>{
     this.setState({
       showEdit: true,
+      help:false
+    })
+  }
+
+
+  viewDriver = () =>{
+    this.setState({
+      viewDriver: true,
       help:false
     })
   }
@@ -192,6 +211,11 @@ export default class DriverDetails extends React.Component{
       }
   }
 
+  changeMode(mode){
+    firebase.database().ref('drivers/' + this.state.key).update({mode : mode}).then(()=>{
+      alert('saved')
+    })
+  }
 
   saveData = () =>{
     if (docCounter){
@@ -217,6 +241,12 @@ export default class DriverDetails extends React.Component{
       this.hideEdit()
     })
   }
+  }
+
+  editCell (){
+    firebase.database().ref('drivers/' + this.state.key).update({phone : this.state.phone}).then(()=>{
+      console.log('saved')
+    })
   }
 
     render(){
@@ -271,6 +301,76 @@ export default class DriverDetails extends React.Component{
                 </div>
             </div>
           </div>  
+
+          <div className={this.state.viewDriver ? "App-modal2" : "App-hide"}>
+            <div className="App-modal-content3"> 
+            <span className="App-close" onClick={this.hideEdit}>&times;</span><br></br>
+            <div class="grid-container">
+              <div class="grid-item">
+              <img className="driverImage" src={this.state.img} />
+              <p style={{fontSize: 19}}>{this.state.firstName} {this.state.surname}</p>
+        <p style={{fontSize: 17}} >Completed {this.state.totalTrips} deliveries</p>
+        <p style={{fontSize: 17}}>Joined: {this.state.date.split(' ')[0]}</p>
+        <p style={{fontSize: 17, fontWeight:'bold'}}>Amount due: R{this.state.totAmount}</p>
+              </div>
+
+
+              <div class="grid-item">
+              <span className="headerText">Personal Details</span><br></br>
+                    <span><a ></a> <a className="contentIcons">Name: {this.state.firstName} {this.state.surname}</a></span>
+                    <br></br>
+                    <span ><a ></a><a className="contentIcons">ID/Passport: {this.state.idNo}</a>  </span>
+                    <br></br>
+                    <span><a className="contentIcons">Cell: </a><input className="contentIcons" onChange={(text)=>{this.setState({phone: text.target.value}, ()=>{this.editCell()})}}  value={this.state.phone}></input> </span>
+                    <br></br>
+                    <span ><a ></a><a className="contentIcons">Email: {this.state.email}</a></span>
+                    <br></br>
+                    <br></br>
+                    <span className="headerText">Vehicle Details</span><br></br>
+                    <span><a ></a><a className="contentIcons">Make: {this.state.make} {this.state.model}</a></span>
+                    <br></br>
+                  
+                    <span><a className="contentIcons">Mode: </a>
+                    <select onChange={(text)=>{this.changeMode(text.target.value)}} className="contentIcons">
+                      <option>{this.state.mode}</option>
+                      <option value="Bike">Bike</option>
+                      <option value="Car">Car</option>
+                      <option value="Panel">Panel van</option>
+                      <option value="1 Ton Bakkie">1 Ton Bakkie</option>
+                      <option value="onehalfton">1.5 Ton Truck</option>
+                    </select>
+                    </span>
+                    <br></br>
+                    <span><a ></a><a className="contentIcons">Plate Number: {this.state.plateNum}</a></span>
+                    <br></br>
+                    <span><a></a><a className="contentIcons">Year: {this.state.year}</a></span>
+              </div>
+
+              <div class="grid-item">
+              <span className="headerText">License Details</span><br></br>
+                    <span><a ></a><a className="contentIcons">license No: {this.state.licenseNo} </a></span>
+                    <br></br>
+                    <span><a></a><a className="contentIcons">Start Date: {this.state.startDate}</a></span>
+                    <br></br>
+                    <span><a ></a><a className="contentIcons">End Date: {this.state.endDate}</a></span>
+                    <br></br>
+                    <span><a></a><a className="contentIcons">Code: {this.state.code}</a></span>
+                    <br></br>
+                    <br></br>
+                    <span className="headerText">Documents</span><br></br>
+                    <span><a ></a><a className="contentIcons">Street: {this.state.street} </a></span>
+                    <br></br>
+                    <span><a></a><a className="contentIcons">Suburb: {this.state.suburb}</a></span>
+                    <br></br>
+                    <span><a ></a><a className="contentIcons">City: {this.state.city}</a></span>
+                    <br></br>
+                    <span><a></a><a className="contentIcons">Country: {this.state.country}</a></span>
+                    <br></br>
+                    <span><a></a><a className="contentIcons">Postal Code: {this.state.postalCode}</a></span></div>    
+            </div>
+            </div>
+          </div>  
+
           <div className={this.state.help ? "App-modal" : "App-hide"}>
             <div className="App-modal-content">
                 <span className="App-close" onClick={this.hideHelp}>&times;</span><br></br>
@@ -321,7 +421,7 @@ export default class DriverDetails extends React.Component{
                 </div>
               <div>
               {(this.state.Showbuttons ? <div> <button className="App-button" onClick={this.acceptDriver}>Accept</button><button className="App-button2">Reject</button> </div>
-              : <div className="Editbtn"> <button className="App-button" onClick={this.editDriver}>Edit</button> </div>
+              : <div className="Editbtn"> <button className="App-button" onClick={this.editDriver}>upload</button> <button className="App-button2" onClick={this.viewDriver}>Edit</button></div>
               )}
               </div>
             </div>
