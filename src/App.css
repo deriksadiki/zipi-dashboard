@@ -2,6 +2,14 @@
   border: 1px solid rgba(255, 255, 255, 0.507);
   height: 7vh;
 }
+
+.inputStyle{
+  width: 50%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
 table, th, td {
   border: 1px solid rgb(29, 29, 29);
 }

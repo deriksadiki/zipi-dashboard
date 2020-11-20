@@ -12,6 +12,7 @@ import Drivers from './components/Drivers'
 import Deliveries from './components/Deliveries'
 import HelpModal from './components/HelpModal'
 import DriverDetails from './components/NewDriverDetails'
+import Discount from './components/Discount'
 
 //Install ExportToCSV package before running. I didn't update Package.json
 import {ExportToCsv} from 'export-to-csv'
@@ -20,6 +21,9 @@ import {ExportToCsv} from 'export-to-csv'
 import Accepted from './stats/drivers/Accepted'
 import Pending from './stats/drivers/Pending'
 import Area from './stats/drivers/Area'
+import Online from './stats/drivers/Online'
+import Offline from './stats/drivers/Offline'
+
 import Transport from './stats/clients/Transport'
 import All from './stats/deliveries/All'
 import  DeliveryAreas from './stats/deliveries/DeliveryAreas'
@@ -62,7 +66,9 @@ class App extends Component {
       clientStats: false,
       driver_data: [],
       panel : [],
-      car : []
+      car : [],
+      onlineDrivers: [],
+      offlineDrivers: []
     };
   }
 
@@ -99,7 +105,9 @@ class App extends Component {
       bakkieDrivers: this.Drivers.state.bakkies,
       driversArr : this.Drivers.state.accepted,
       panel : this.Drivers.state.panel,
-      car: this.Drivers.state.car
+      car: this.Drivers.state.car,
+      onlineDrivers : this.Drivers.state.online,
+      offlineDrivers : this.Drivers.state.offline
     })
     setTimeout(() => {
       this.getDrivers();
@@ -224,6 +232,10 @@ showPending = () =>{
     this.makeExcel(data);
   }
 
+  setDiscount (){
+    this.discount.openMoreInfo()
+  }
+
   makeExcel(data){
     console.log(data);
     const options = { 
@@ -332,6 +344,7 @@ const truckDrivers =  this.state.truckDrivers.map((data,index) =>
         <div className="App-body">
         <span className="menu" onClick={this.shownav}>&#9776;</span>
            <ul className="App-menu">
+           <li onClick={()=>{this.setDiscount()}}>Discount</li>
               <li onClick={()=>{this.exportDrivers()}}>Export to CSV</li>
               <li>Users</li>
               <li>Settings</li>
@@ -412,6 +425,7 @@ const truckDrivers =  this.state.truckDrivers.map((data,index) =>
           <h4>Reports</h4>
           </div>
           <DriverDetails ref={ref=>{this.DriverDetails = ref}} />
+          <Discount ref={ref=>{this.discount = ref}} />
 
           <div  className={this.state.driverStats ? "App-show" : "App-hide"}>
           <h4>Drivers Stats</h4>
@@ -427,6 +441,18 @@ const truckDrivers =  this.state.truckDrivers.map((data,index) =>
                   <div className="card"><span class="iconColors"><a class="fa fa-location-arrow"></a>  Location</span> <span style={{float:"right"}}>{this.state.driversArr.length}</span><br></br>
                   <div className="App-align" ><Area /></div> 
                   </div>
+
+                  <div className="card"><span class="iconColors"><a class="fa fa-location-arrow"></a>  Online</span> <span style={{float:"right"}}>{this.state.onlineDrivers.length}</span><br></br>
+                  <div className="App-align" ><Online /></div> 
+                  </div>
+
+                  <div className="card"><span class="iconColors"><a class="fa fa-location-arrow"></a>  Offline</span> <span style={{float:"right"}}>{this.state.offlineDrivers.length}</span><br></br>
+                  <div className="App-align" ><Offline /></div> 
+                  </div>
+
+                  {/* <div className="card"><span class="iconColors"><a class="fa fa-location-arrow"></a>  On Route</span> <span style={{float:"right"}}>{this.state.driversArr.length}</span><br></br>
+                  <div className="App-align" ><Area /></div> 
+                  </div> */}
             </div>
           </div>
 

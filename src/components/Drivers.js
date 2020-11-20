@@ -17,6 +17,8 @@ export default class Drivers extends React.Component{
               trucks:[],
               panel: [],
               car: [],
+              online: [],
+              offline : [],
               showStats: false,
               loading:true,
               months : ["January", "February", "March", "April", "May", "June",
@@ -40,6 +42,8 @@ export default class Drivers extends React.Component{
             var tempTrucks =  new Array()
             var tempPanel = new Array();
             var tempCars = new Array();
+            var tempOnline = new Array();
+            var tempoffline = new Array();
             for (var x = 0; x < keys.length; x++){
               if (details[keys[x]].status == "pending"){
                 let tempObj = details[keys[x]];
@@ -77,9 +81,19 @@ export default class Drivers extends React.Component{
                 let tempObj = details[keys[x]];
                 tempObj.key = keys[x];
                 tempAccepted.push(tempObj)
+
+                if (details[keys[x]].availability == true){
+                    let tempObj = details[keys[x]];
+                    tempObj.key = keys[x];
+                    tempOnline.push(tempObj)
+                }else if (details[keys[x]].availability == false){
+                    let tempObj = details[keys[x]];
+                    tempObj.key = keys[x];
+                    tempoffline.push(tempObj)
+                }
               }
             }
-            console.log(tempAccepted)
+    
             this.countDrivers(tempArr)
             this.setState({
               driverKeys: keys,
@@ -91,7 +105,9 @@ export default class Drivers extends React.Component{
               bikes: tempBikes,
               trucks: tempTrucks,
               panel: tempPanel,
-              car: tempCars           
+              car: tempCars,
+              online : tempOnline,
+              offline: tempoffline       
             })
           }
         })
