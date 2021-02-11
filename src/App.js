@@ -13,6 +13,7 @@ import Deliveries from './components/Deliveries'
 import HelpModal from './components/HelpModal'
 import DriverDetails from './components/NewDriverDetails'
 import Discount from './components/Discount'
+import Attempts from './components/Attempts';
 
 //Install ExportToCSV package before running. I didn't update Package.json
 import {ExportToCsv} from 'export-to-csv'
@@ -236,6 +237,10 @@ showPending = () =>{
     this.discount.openMoreInfo()
   }
 
+  showReq(){
+    this.attempts.openMoreInfo();
+  }
+
   makeExcel(data){
     console.log(data);
     const options = { 
@@ -266,7 +271,7 @@ render(){
           <p className="App-Details">{data.firstName} {data.surname}<br></br>
             <span>ID/Passport: {data.idNo}</span><br></br>
             <span>Mode: {data.mode}</span>
-            <span>key : {data.key}</span>
+            {/* <span>key : {data.key}</span> */}
           </p>
           </div>
     </div>
@@ -280,7 +285,7 @@ render(){
           <p className="App-Details">Name: {data.firstName} {data.surname}<br></br>
             <span>Deliveries: {data.totalTrips}</span><br></br>
             <span>Mode: {data.mode}</span>
-    <span>key : {data.key}</span>
+    {/* <span>key : {data.key}</span> */}
           </p>
           </div>
     </div>
@@ -344,6 +349,7 @@ const truckDrivers =  this.state.truckDrivers.map((data,index) =>
         <div className="App-body">
         <span className="menu" onClick={this.shownav}>&#9776;</span>
            <ul className="App-menu">
+           <li onClick={()=>{this.showReq()}}>Requests</li>
            <li onClick={()=>{this.setDiscount()}}>Discount</li>
               <li onClick={()=>{this.exportDrivers()}}>Export to CSV</li>
               <li>Users</li>
@@ -426,7 +432,7 @@ const truckDrivers =  this.state.truckDrivers.map((data,index) =>
           </div>
           <DriverDetails ref={ref=>{this.DriverDetails = ref}} />
           <Discount ref={ref=>{this.discount = ref}} />
-
+          <Attempts ref={ref=>{this.attempts = ref}} />
           <div  className={this.state.driverStats ? "App-show" : "App-hide"}>
           <h4>Drivers Stats</h4>
           <div class="cards">

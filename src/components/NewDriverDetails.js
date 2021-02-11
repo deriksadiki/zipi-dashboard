@@ -249,6 +249,27 @@ export default class DriverDetails extends React.Component{
     })
   }
 
+  updateDriverInfo = () =>{
+    
+    firebase.database().ref('drivers/' + this.state.key).update({
+      licenseNo: this.state.licenseNo,
+      startDate : this.state.startDate,
+      endDate : this.state.endDate,
+      code : this.state.code,
+      street : this.state.street,
+      suburb:  this.state.suburb,
+      city : this.state.city,
+      country : this.state.country,
+      postalCode : this.state.postalCode,
+      make : this.state.make,
+      model : this.state.model,
+      plateNum : this.state.plateNum,
+      year : this.state.year
+    }).then(()=>{
+      alert('saved')
+    })
+  }
+
     render(){
         return(
         <div>
@@ -327,7 +348,9 @@ export default class DriverDetails extends React.Component{
                     <br></br>
                     <br></br>
                     <span className="headerText">Vehicle Details</span><br></br>
-                    <span><a ></a><a className="contentIcons">Make: {this.state.make} {this.state.model}</a></span>
+                    <span><a ></a><a className="contentIcons">Make: </a><input className="contentIcons" onChange={(text)=>{this.setState({make: text.target.value})}}  value={this.state.make}></input></span>
+                    <br></br>
+                    <span><a ></a><a className="contentIcons">Model:</a><input className="contentIcons" onChange={(text)=>{this.setState({model: text.target.value})}}  value={this.state.model}></input></span>
                     <br></br>
                   
                     <span><a className="contentIcons">Mode: </a>
@@ -341,33 +364,34 @@ export default class DriverDetails extends React.Component{
                     </select>
                     </span>
                     <br></br>
-                    <span><a ></a><a className="contentIcons">Plate Number: {this.state.plateNum}</a></span>
+                    <span><a ></a><a className="contentIcons">Plate Number: </a><input className="contentIcons" onChange={(text)=>{this.setState({plateNum: text.target.value})}}  value={this.state.plateNum}></input></span>
                     <br></br>
-                    <span><a></a><a className="contentIcons">Year: {this.state.year}</a></span>
+                    <span><a></a><a className="contentIcons">Year: </a><input className="contentIcons" onChange={(text)=>{this.setState({year: text.target.value})}}  value={this.state.year}></input></span>
               </div>
 
               <div class="grid-item">
               <span className="headerText">License Details</span><br></br>
-                    <span><a ></a><a className="contentIcons">license No: {this.state.licenseNo} </a></span>
+                    <span><a ></a><a className="contentIcons">license No:</a> <input className="contentIcons" onChange={(text)=>{this.setState({licenseNo: text.target.value})}}  value={this.state.licenseNo}></input></span>
                     <br></br>
-                    <span><a></a><a className="contentIcons">Start Date: {this.state.startDate}</a></span>
+                    <span><a></a><a className="contentIcons">Start Date: </a> <input className="contentIcons" onChange={(text)=>{this.setState({startDate: text.target.value})}}  value={this.state.startDate}></input></span>
                     <br></br>
-                    <span><a ></a><a className="contentIcons">End Date: {this.state.endDate}</a></span>
+                    <span><a ></a><a className="contentIcons">End Date: </a><input className="contentIcons" onChange={(text)=>{this.setState({endDate: text.target.value})}}  value={this.state.endDate}></input></span>
                     <br></br>
-                    <span><a></a><a className="contentIcons">Code: {this.state.code}</a></span>
+                    <span><a></a><a className="contentIcons">Code: </a><input className="contentIcons" onChange={(text)=>{this.setState({code: text.target.value})}}  value={this.state.code}></input></span>
                     <br></br>
                     <br></br>
-                    <span className="headerText">Documents</span><br></br>
-                    <span><a ></a><a className="contentIcons">Street: {this.state.street} </a></span>
+                    <span className="headerText">Address</span><br></br>
+                    <span><a ></a><a className="contentIcons">Street: </a><input className="contentIcons" onChange={(text)=>{this.setState({street: text.target.value})}}  value={this.state.street}></input></span>
                     <br></br>
-                    <span><a></a><a className="contentIcons">Suburb: {this.state.suburb}</a></span>
+                    <span><a></a><a className="contentIcons">Suburb: </a><input className="contentIcons" onChange={(text)=>{this.setState({suburb: text.target.value})}}  value={this.state.suburb}></input></span>
                     <br></br>
-                    <span><a ></a><a className="contentIcons">City: {this.state.city}</a></span>
+                    <span><a ></a><a className="contentIcons">City: </a><input className="contentIcons" onChange={(text)=>{this.setState({city: text.target.value})}}  value={this.state.city}></input></span>
                     <br></br>
-                    <span><a></a><a className="contentIcons">Country: {this.state.country}</a></span>
+                    <span><a></a><a className="contentIcons">Country: </a><input className="contentIcons" onChange={(text)=>{this.setState({country: text.target.value})}}  value={this.state.country}></input></span>
                     <br></br>
-                    <span><a></a><a className="contentIcons">Postal Code: {this.state.postalCode}</a></span></div>    
+                    <span><a></a><a className="contentIcons">Postal Code: </a><input className="contentIcons" onChange={(text)=>{this.setState({postalCode: text.target.value})}}  value={this.state.postalCode}></input></span></div>    
             </div>
+            <div> <button className="App-button" onClick={this.updateDriverInfo}>SAVE</button></div>
             </div>
           </div>  
 
