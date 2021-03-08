@@ -270,8 +270,8 @@ render(){
           <div className="App-cont">
           <p className="App-Details">{data.firstName} {data.surname}<br></br>
             <span>ID/Passport: {data.idNo}</span><br></br>
-            <span>Mode: {data.mode}</span>
-            {/* <span>key : {data.key}</span> */}
+            <span>Mode: {data.email}</span>
+            <span>key : {data.key}</span>
           </p>
           </div>
     </div>
@@ -284,8 +284,8 @@ render(){
           <div className="App-cont">
           <p className="App-Details">Name: {data.firstName} {data.surname}<br></br>
             <span>Deliveries: {data.totalTrips}</span><br></br>
-            <span>Mode: {data.mode}</span>
-    {/* <span>key : {data.key}</span> */}
+            <span>Mode: {data.email}</span>
+    <span>key : {data.key}</span>
           </p>
           </div>
     </div>

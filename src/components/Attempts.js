@@ -26,7 +26,8 @@ export default class Attempts extends React.Component{
                        email : innerDetails[innerKeys[0]].email,
                        location: innerDetails[innerKeys[0]].PickUp,
                        cell : innerDetails[innerKeys[0]].cell,
-                       attempts : innerKeys.length
+                       attempts : innerKeys.length,
+                       date : innerDetails[innerKeys[0]].date
                    }
 
                    tempArray.push(obj)
@@ -60,6 +61,7 @@ export default class Attempts extends React.Component{
                     <p style={{fontSize:22}}>Cell : {data.cell}</p>
                     <p style={{fontSize:22}}>Email : {data.email}</p>
                     <p style={{fontSize:22}}>Location : {data.location.replace(', South Africa', '')}</p>
+                    <p style={{fontSize:22}}>Date : {data.date}</p>
                     <p style={{fontSize:22}}>Attempts : {data.attempts} times</p>
                     <hr></hr>
             </div>
