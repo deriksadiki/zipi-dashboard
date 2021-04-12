@@ -14,6 +14,7 @@ import HelpModal from './components/HelpModal'
 import DriverDetails from './components/NewDriverDetails'
 import Discount from './components/Discount'
 import Attempts from './components/Attempts';
+import SendMsg from './components/SendMsg';
 
 //Install ExportToCSV package before running. I didn't update Package.json
 import {ExportToCsv} from 'export-to-csv'
@@ -241,6 +242,10 @@ showPending = () =>{
     this.attempts.openMoreInfo();
   }
 
+  sendMessage(){
+    this.SendMsg.show();
+  }
+
   makeExcel(data){
     console.log(data);
     const options = { 
@@ -253,7 +258,7 @@ showPending = () =>{
       useTextFile: false,
       useBom: true,
       useKeysAsHeaders: false,
-      headers: ['Licence', 'Date Reg', 'Email Address', 'Licence Date', 'Surname', 'ID / Passport', 'Licence', 'Name', 'Month', 'Cell No', 'Date', 'Status', 'Surname']
+      headers: ['Licence', 'Date Reg', 'Email Address', 'Licence Date', 'Surname', 'ID / Passport', 'Licence', 'Name', 'Month', 'Cell No', 'Date', 'Status', 'Surname', 'Mode', 'Model']
     };
    
 
@@ -349,6 +354,7 @@ const truckDrivers =  this.state.truckDrivers.map((data,index) =>
         <div className="App-body">
         <span className="menu" onClick={this.shownav}>&#9776;</span>
            <ul className="App-menu">
+           <li onClick={()=>{this.sendMessage()}}>Message Drivers</li>
            <li onClick={()=>{this.showReq()}}>Requests</li>
            <li onClick={()=>{this.setDiscount()}}>Discount</li>
               <li onClick={()=>{this.exportDrivers()}}>Export to CSV</li>
@@ -433,6 +439,7 @@ const truckDrivers =  this.state.truckDrivers.map((data,index) =>
           <DriverDetails ref={ref=>{this.DriverDetails = ref}} />
           <Discount ref={ref=>{this.discount = ref}} />
           <Attempts ref={ref=>{this.attempts = ref}} />
+          <SendMsg ref={ref=>{this.SendMsg = ref}} />
           <div  className={this.state.driverStats ? "App-show" : "App-hide"}>
           <h4>Drivers Stats</h4>
           <div class="cards">
