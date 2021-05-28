@@ -276,7 +276,7 @@ render(){
           <p className="App-Details">{data.firstName} {data.surname}<br></br>
             <span>ID/Passport: {data.idNo}</span><br></br>
             <span>Mode: {data.mode}</span>
-            {/* <span>key : {data.key}</span> */}
+            <span>key : {data.key}</span>
           </p>
           </div>
     </div>
@@ -290,7 +290,7 @@ render(){
           <p className="App-Details">Name: {data.firstName} {data.surname}<br></br>
             <span>Deliveries: {data.totalTrips}</span><br></br>
             <span>Mode: {data.mode}</span>
-    {/* <span>key : {data.key}</span> */}
+    <span>key : {data.key}</span>
           </p>
           </div>
     </div>
