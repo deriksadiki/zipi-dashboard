@@ -169,7 +169,7 @@ export default class DriverDetails extends React.Component{
     firebase.database().ref('drivers/' + this.state.key).update({status: 'rejected'});
     const xhr = new XMLHttpRequest();
     const values = `email=${this.state.email}`;
-    const url = 'https://zipi.co.za/rejected.php?';
+    const url = 'https://zipi.co.za/reject_driver.php?';
     xhr.open('GET', `${url}${values}`, false)
     xhr.onreadystatechange = () => {
       if(xhr.status == '200' && xhr.readyState == '4') {
