@@ -26,13 +26,23 @@ export default class Distance extends React.Component{
       for (var x = 0; x < this.Deliveries.state.deliveries.length; x++){
         let counter = true
           for (var i = 0; i < tempArr.length; i++){
-            if (this.Deliveries.state.deliveries[x].dropOffTime.split(' ')[0] === tempArr[i]){
-               counter = false
+            try {
+              if (this.Deliveries.state.deliveries[x].dropOffTime.split(' ')[0] === tempArr[i]){
+                counter = false
+             }
+            } catch (error) {
+              console.warn(error);
             }
+
            
           }
-          if (counter)
-              tempArr.push(this.Deliveries.state.deliveries[x].dropOffTime.split(' ')[0])
+          try {
+            if (counter)
+            tempArr.push(this.Deliveries.state.deliveries[x].dropOffTime.split(' ')[0])
+          } catch (error) {
+            console.warn(error);
+          }
+
       }
       this.countDrivers(tempArr)
       setTimeout(() => {
@@ -51,12 +61,17 @@ export default class Distance extends React.Component{
           for (var i = 0; i < drivers.length; i++){
               var total = 0;
               labels.push(drivers[i])
-              for (var x = 0; x < this.Deliveries.state.deliveries.length; x++){
+              try {
+                for (var x = 0; x < this.Deliveries.state.deliveries.length; x++){
                   if (drivers[i] === this.Deliveries.state.deliveries[x].dropOffTime.split(' ')[0]){
                     total = total + parseInt(this.Deliveries.state.deliveries[x].distance)
                   }
               }
               tempArr.push(total)
+              } catch (error) {
+                console.warn(error);
+              }
+
           }
           this.setState({
             data:{

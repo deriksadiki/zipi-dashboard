@@ -27,13 +27,23 @@ export default class ClientByDates extends React.Component{
         for (var x = 0; x < this.Users.state.usersArr.length; x++){
           let counter = true
             for (var i = 0; i < tempArr.length; i++){
-              if (this.Users.state.usersArr[x].date.split(' ')[0] === tempArr[i]){
-                 counter = false
+              try {
+                if (this.Users.state.usersArr[x].date.split(' ')[0] === tempArr[i]){
+                  counter = false
+               }
+              } catch (error) {
+                console.warn(this.Users.state.usersArr[x]);
               }
+
              
             }
-            if (counter)
-                tempArr.push(this.Users.state.usersArr[x].date.split(' ')[0])
+            try {
+              if (counter)
+              tempArr.push(this.Users.state.usersArr[x].date.split(' ')[0])
+            } catch (error) {
+              console.warn(error);
+            }
+
         }
         this.countDrivers(tempArr)
       }
@@ -54,9 +64,14 @@ export default class ClientByDates extends React.Component{
               var total = 0;
               labels.push(Users[i])
               for (var x = 0; x < this.Users.state.usersArr.length; x++){
+                try {
                   if (Users[i] === this.Users.state.usersArr[x].date.split(' ')[0]){
                     total++;
                   }
+                } catch (error) {
+                  console.warn(this.Users.state.usersArr[x]);
+                }
+
               }
               tempArr.push(total)
           }
