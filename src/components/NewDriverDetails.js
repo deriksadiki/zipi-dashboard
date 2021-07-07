@@ -106,7 +106,7 @@ export default class DriverDetails extends React.Component{
       licenseNo:data.licenseNo,
       startDate : data.startDate,
       endDate : data.endDate,
-      code : data.code,
+      code : data.code || data.licenseCode,
       make :  data.make,
       model : data.model,
       mode: data.mode,
@@ -164,6 +164,18 @@ export default class DriverDetails extends React.Component{
         }
     }
     xhr.send()
+  }
+  rejectDriver = () => {
+    firebase.database().ref('drivers/' + this.state.key).update({status: 'rejected'});
+    const xhr = new XMLHttpRequest();
+    const values = `email=${this.state.email}`;
+    const url = 'https://zipi.co.za/rejected.php?';
+    xhr.open('GET', `${url}${values}`, false)
+    xhr.onreadystatechange = () => {
+      if(xhr.status == '200' && xhr.readyState == '4') {
+        
+      }
+    }
   }
 
   selectID(event, tableId){
@@ -444,7 +456,7 @@ export default class DriverDetails extends React.Component{
                     <br></br>
                 </div>
               <div>
-              {(this.state.Showbuttons ? <div> <button className="App-button" onClick={this.acceptDriver}>Accept</button><button className="App-button2">Reject</button> </div>
+              {(this.state.Showbuttons ? <div> <button className="App-button" onClick={this.acceptDriver}>Accept</button><button className="App-button2" onClick={this.rejectDriver}>Reject</button> </div>
               : <div className="Editbtn"> <button className="App-button" onClick={this.editDriver}>upload</button> <button className="App-button2" onClick={this.viewDriver}>Edit</button></div>
               )}
               </div>
