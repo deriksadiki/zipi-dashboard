@@ -156,8 +156,8 @@ export default class DriverDetails extends React.Component{
     this.setState({help:false, moreInfo:false})
     let xhr = new XMLHttpRequest();
     let values = `email=${this.state.email}`;
-    let url = 'https://cors-anywhere.herokuapp.com/https://zipi.co.za/approved.php?';
-    xhr.open('GET', `${url}&${values}`, false)
+    let url = 'https://zipi.co.za/approved.php?';
+    xhr.open('GET', `${url}${values}`, false)
     xhr.onreadystatechange = () =>{
         if (xhr.status == '200' &&  xhr.readyState == '4'){
             let resp =  xhr.responseText;

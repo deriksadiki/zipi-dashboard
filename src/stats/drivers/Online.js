@@ -24,7 +24,12 @@ export default class Online extends React.Component{
         if (this.Drivers.state.online.length > 0){
         let tempArr =  new Array();
         let first = this.Drivers.state.online[0].availability
-        tempArr.push(first.toLowerCase())
+        try {
+          tempArr.push(first.toLowerCase())
+        } catch (error) {
+          console.warn(first);
+        }
+
         for (var x = 0; x < this.Drivers.state.online.length; x++){
           let counter = true
             for (var i = 0; i < tempArr.length; i++){
@@ -39,7 +44,12 @@ export default class Online extends React.Component{
             if (counter){
               if (this.Drivers.state.online[x].availability != undefined){
                 let word = this.Drivers.state.online[x].availability
+                try {
                   tempArr.push(word.toLowerCase())
+                } catch (error) {
+                  console.warn(word);
+                }
+
               }
             }
         }

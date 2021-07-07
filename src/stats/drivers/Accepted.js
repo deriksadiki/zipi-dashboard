@@ -61,9 +61,14 @@ export default class Accepted extends React.Component{
               labels.push(drivers[i])
               for (var x = 0; x < this.Drivers.state.accepted.length; x++){
                 if (this.Drivers.state.accepted[x] != undefined){
-                  if (drivers[i] === this.Drivers.state.accepted[x].date.split(' ')[0]){
-                    total++;
+                  try {
+                    if (drivers[i] === this.Drivers.state.accepted[x].date.split(' ')[0]){
+                      total++;
+                    }    
+                  } catch (error) {
+                    console.warn(this.Drivers.state)
                   }
+
                 }
               }
               tempArr.push(total)

@@ -26,13 +26,23 @@ export default class All extends React.Component{
       for (var x = 0; x < this.Deliveries.state.deliveries.length; x++){
         let counter = true
           for (var i = 0; i < tempArr.length; i++){
-            if (this.Deliveries.state.deliveries[x].dropOffTime.split(' ')[0] === tempArr[i]){
-               counter = false
+            try {
+              if (this.Deliveries.state.deliveries[x].dropOffTime.split(' ')[0] === tempArr[i]){
+                counter = false
+             }
+            } catch (error) {
+              console.warn(this.Deliveries.state.deliveries[x]);
             }
+
            
           }
-          if (counter)
-              tempArr.push(this.Deliveries.state.deliveries[x].dropOffTime.split(' ')[0])
+          try {
+            if (counter)
+            tempArr.push(this.Deliveries.state.deliveries[x].dropOffTime.split(' ')[0])
+          } catch (error) {
+            console.warn(error);
+          }
+
       }
       this.countDrivers(tempArr)
       setTimeout(() => {
@@ -52,9 +62,14 @@ export default class All extends React.Component{
               var total = 0;
               labels.push(drivers[i])
               for (var x = 0; x < this.Deliveries.state.deliveries.length; x++){
+                try {
                   if (drivers[i] === this.Deliveries.state.deliveries[x].dropOffTime.split(' ')[0]){
                     total++;
                   }
+                } catch (error) {
+                  console.warn(error);
+                }
+
               }
               tempArr.push(total)
           }
