@@ -156,7 +156,7 @@ export default class DriverDetails extends React.Component{
     this.setState({help:false, moreInfo:false})
     let xhr = new XMLHttpRequest();
     let values = `email=${this.state.email}`;
-    let url = 'https://zipi.co.za/approved.php?';
+    let url = 'https://developer.zipi.co.za/emails/driver_approved.php?';
     xhr.open('GET', `${url}${values}`, false)
     xhr.onreadystatechange = () =>{
         if (xhr.status == '200' &&  xhr.readyState == '4'){
@@ -170,7 +170,7 @@ export default class DriverDetails extends React.Component{
     this.hideHelp();
     const xhr = new XMLHttpRequest();
     const values = `email=${this.state.email}`;
-    const url = 'https://zipi.co.za/reject_driver.php?';
+    const url = 'https://developer.zipi.co.za/emails/driver_declined.php?';
     xhr.open('GET', `${url}${values}`, false)
     xhr.onreadystatechange = () => {
       if(xhr.status == '200' && xhr.readyState == '4') {
