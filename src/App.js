@@ -99,7 +99,7 @@ class App extends Component {
     this.hideHelp();
   }
   getDrivers(){
-    if (this.Drivers.state.loading == false){
+    if (this.Drivers && this.Drivers.state.loading == false){
       this.setState({DriversTot: this.Drivers.state.driverKeys.length, 
       pending: this.Drivers.state.pending,
       bikeDrives: this.Drivers.state.bikes,

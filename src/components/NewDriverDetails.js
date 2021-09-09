@@ -166,7 +166,7 @@ export default class DriverDetails extends React.Component{
     xhr.send()
   }
   rejectDriver = () => {
-    firebase.database().ref('drivers/' + this.state.key).update({status: 'rejected'});
+    // firebase.database().ref('drivers/' + this.state.key).update({status: 'rejected'});
     this.hideHelp();
     const xhr = new XMLHttpRequest();
     const values = `email=${this.state.email}`;
@@ -176,6 +176,7 @@ export default class DriverDetails extends React.Component{
       if(xhr.status == '200' && xhr.readyState == '4') {
         let resp = xhr.responseText;
         console.log(resp);
+        console.log('msg gone: ', true);
       }
     }
     xhr.send();
