@@ -176,7 +176,7 @@ export default class DriverDetails extends React.Component{
       if(xhr.status == '200' && xhr.readyState == '4') {
         let resp = xhr.responseText;
         console.log(resp);
-        console.log('msg gone: truerejec');
+        console.log('msg gone: ', true);
       }
     }
     xhr.send();
